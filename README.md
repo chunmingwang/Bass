@@ -1,5 +1,5 @@
 # Bass
-Examplea for VisualFBEditor
+Example for VisualFBEditor
 
 BassAudio
 Function: Playback, Recoder, NetRadion
