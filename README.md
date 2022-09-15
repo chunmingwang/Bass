@@ -6,6 +6,8 @@ Function: Playback, Recorder, NetRadio
 With: Device Select, Spectrum, Ex, Equalizer
 
 ![image](https://user-images.githubusercontent.com/35757455/189489511-0ecca0c9-7e1c-4dd5-8250-4c25e35ce807.png)
+![bassaudio64-1](https://user-images.githubusercontent.com/35757455/190365959-08f9e920-aa65-497a-b973-b396b1d5581a.gif)
+![bassaudio64-2](https://user-images.githubusercontent.com/35757455/190365985-ccbea066-ef52-4141-8fbc-c20a00bce083.gif)
 
 LiveFX
 
