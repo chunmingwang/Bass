@@ -7,6 +7,8 @@ Function:
 
 # Playback 
 
+Support audio format mp3, wav, flac, ape...
+
 # Recorder
 
 Record live audio, Record computer playback, Record netredio...
