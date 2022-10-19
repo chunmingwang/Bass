@@ -9,8 +9,7 @@ Function:
 
 # Recorder
 
-Record live audio
-Record computer playback on any Windows Vista or later machine
+Record live audio, Record computer playback, Record netredio...
 
 # NetRadio
 
