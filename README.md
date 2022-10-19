@@ -2,8 +2,19 @@
 Example for VisualFBEditor
 
 BassAudio
-Function: Playback, Recorder, NetRadio
-With: Device Select, Spectrum, Ex, Equalizer
+
+Function: 
+
+# Playback 
+
+# Recorder
+
+Record live audio
+Record computer playback on any Windows Vista or later machine
+
+# NetRadio
+
+# Device Select, Spectrum, Ex, Equalizer
 
 ![image](https://user-images.githubusercontent.com/35757455/189489511-0ecca0c9-7e1c-4dd5-8250-4c25e35ce807.png)
 ![bassaudio64-1](https://user-images.githubusercontent.com/35757455/190365959-08f9e920-aa65-497a-b973-b396b1d5581a.gif)
