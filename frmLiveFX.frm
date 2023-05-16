@@ -1,7 +1,16 @@
-﻿#ifdef __FB_WIN32__
-
-#endif
-'#Region "Form"
+﻿'#Region "Form"
+	#if defined(__FB_MAIN__) AndAlso Not defined(__MAIN_FILE__)
+		#define __MAIN_FILE__
+		Const _MAIN_FILE_ = __FILE__
+		#ifdef __FB_WIN32__
+			#cmdline "frmLiveFX.rc"
+		#endif
+	#endif
+	#ifdef __FB_64BIT__
+		#libpath "./lib/win64"
+	#else
+		#libpath "./lib/win32"
+	#endif
 	#include once "mff/Form.bi"
 	#include once "mff/ComboBoxEdit.bi"
 	#include once "mff/CheckBox.bi"
@@ -12,8 +21,8 @@
 	#include once "mff/ProgressBar.bi"
 	#include once "vbcompat.bi"
 	#include once "string.bi"
-	#include once "bass.bi"
 	#include once "crt/math.bi"
+	#include once "bass.bi"
 	#include once "BassBase.bi"
 	
 	Using My.Sys.Forms
@@ -25,7 +34,7 @@
 		rchan As HRECORD = 0	' recording channel
 		chan As HSTREAM = 0		' playback stream
 		fx(3) As HFX			' FX handles
-		Input As Integer		' current Input source
+		Input As DWORD		' current Input source
 		volume As Single = 0.5	' volume level
 		
 		#define DEFAULTRATE 44100
@@ -44,27 +53,27 @@
 		Declare Sub ShowError(es As String)
 		Declare Function InitDevice(RecDevice As Integer, OutDevice As Integer) As Boolean
 		
-		Declare Static Sub Form_Create_(ByRef Sender As Control)
+		Declare Static Sub _Form_Create(ByRef Sender As Control)
 		Declare Sub Form_Create(ByRef Sender As Control)
-		Declare Static Sub Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
+		Declare Static Sub _Form_Close(ByRef Sender As Form, ByRef Action As Integer)
 		Declare Sub Form_Close(ByRef Sender As Form, ByRef Action As Integer)
-		Declare Static Sub ComboBoxEdit1_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub ComboBoxEdit2_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub CheckBox1_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox1_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox1_Click(ByRef Sender As CheckBox)
-		Declare Static Sub CheckBox2_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox2_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox2_Click(ByRef Sender As CheckBox)
-		Declare Static Sub TrackBar1_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub TimerComponent1_Timer_(ByRef Sender As TimerComponent)
+		Declare Static Sub _TimerComponent1_Timer(ByRef Sender As TimerComponent)
 		Declare Sub TimerComponent1_Timer(ByRef Sender As TimerComponent)
-		Declare Static Sub TrackBar2_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub TrackBar3_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub ComboBoxEdit3_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit3_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit3_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Constructor
 		
@@ -88,8 +97,8 @@
 			.MaximizeBox = False
 			.StartPosition = FormStartPosition.CenterScreen
 			.Designer = @This
-			.OnCreate = @Form_Create_
-			.OnClose = @Form_Close_
+			.OnCreate = @_Form_Create
+			.OnClose = @_Form_Close
 			.SetBounds 0, 0, 260, 440
 		End With
 		' GroupBox1
@@ -126,7 +135,7 @@
 			.TabIndex = 0
 			.SetBounds 10, 20, 210, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit1_Selected_
+			.OnSelected = @_ComboBoxEdit1_Selected
 			.Parent = @GroupBox1
 		End With
 		' ComboBoxEdit2
@@ -136,7 +145,7 @@
 			.TabIndex = 1
 			.SetBounds 10, 50, 210, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit2_Selected_
+			.OnSelected = @_ComboBoxEdit2_Selected
 			.Parent = @GroupBox1
 		End With
 		' CheckBox1
@@ -151,7 +160,7 @@
 			.DoubleBuffered = False
 			.SetBounds 10, 80, 110, 20
 			.Designer = @This
-			.OnClick = @CheckBox1_Click_
+			.OnClick = @_CheckBox1_Click
 			.Parent = @GroupBox3
 		End With
 		' Label1
@@ -177,7 +186,7 @@
 			.MaxValue = 100
 			.SetBounds 10, 50, 210, 20
 			.Designer = @This
-			.OnChange = @TrackBar1_Change_
+			.OnChange = @_TrackBar1_Change
 			.Parent = @GroupBox3
 		End With
 		' CheckBox2
@@ -188,7 +197,7 @@
 			.Caption = "Reverb"
 			.SetBounds 10, 110, 110, 20
 			.Designer = @This
-			.OnClick = @CheckBox2_Click_
+			.OnClick = @_CheckBox2_Click
 			.Parent = @GroupBox3
 		End With
 		' CheckBox3
@@ -199,7 +208,7 @@
 			.Caption = "Gargle"
 			.SetBounds 120, 110, 100, 20
 			.Designer = @This
-			.OnClick = @CheckBox2_Click_
+			.OnClick = @_CheckBox2_Click
 			.Parent = @GroupBox3
 		End With
 		' CheckBox4
@@ -210,7 +219,7 @@
 			.Caption = "Flanger"
 			.SetBounds 10, 130, 100, 20
 			.Designer = @This
-			.OnClick = @CheckBox2_Click_
+			.OnClick = @_CheckBox2_Click
 			.Parent = @GroupBox3
 		End With
 		' CheckBox5
@@ -221,7 +230,7 @@
 			.Caption = "Chorus"
 			.SetBounds 120, 130, 100, 20
 			.Designer = @This
-			.OnClick = @CheckBox2_Click_
+			.OnClick = @_CheckBox2_Click
 			.Parent = @GroupBox3
 		End With
 		' TimerComponent1
@@ -231,7 +240,7 @@
 			.Interval = 1000
 			.SetBounds 0, 0, 16, 16
 			.Designer = @This
-			.OnTimer = @TimerComponent1_Timer_
+			.OnTimer = @_TimerComponent1_Timer
 			.Parent = @This
 		End With
 		' Label2
@@ -255,7 +264,7 @@
 			.MaxValue = 100
 			.SetBounds 10, 100, 210, 20
 			.Designer = @This
-			.OnChange = @TrackBar2_Change_
+			.OnChange = @_TrackBar2_Change
 			.Parent = @GroupBox1
 		End With
 		' ComboBoxEdit3
@@ -265,7 +274,7 @@
 			.TabIndex = 11
 			.SetBounds 10, 20, 210, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit3_Selected_
+			.OnSelected = @_ComboBoxEdit3_Selected
 			.Parent = @GroupBox2
 		End With
 		' TrackBar3
@@ -279,7 +288,7 @@
 			.MaxValue = 100
 			.SetBounds 10, 50, 210, 20
 			.Designer = @This
-			.OnChange = @TrackBar3_Change_
+			.OnChange = @_TrackBar3_Change
 			.Parent = @GroupBox2
 		End With
 		' ProgressBar1
@@ -291,48 +300,48 @@
 		End With
 	End Constructor
 	
-	Private Sub frmLiveFXType.ComboBoxEdit3_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).ComboBoxEdit3_Selected(Sender, ItemIndex)
+	Private Sub frmLiveFXType._ComboBoxEdit3_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).ComboBoxEdit3_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmLiveFXType.TrackBar3_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).TrackBar3_Change(Sender, Position)
+	Private Sub frmLiveFXType._TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).TrackBar3_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmLiveFXType.TrackBar2_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).TrackBar2_Change(Sender, Position)
+	Private Sub frmLiveFXType._TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).TrackBar2_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmLiveFXType.TimerComponent1_Timer_(ByRef Sender As TimerComponent)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).TimerComponent1_Timer(Sender)
+	Private Sub frmLiveFXType._TimerComponent1_Timer(ByRef Sender As TimerComponent)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).TimerComponent1_Timer(Sender)
 	End Sub
 	
-	Private Sub frmLiveFXType.TrackBar1_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).TrackBar1_Change(Sender, Position)
+	Private Sub frmLiveFXType._TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).TrackBar1_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmLiveFXType.CheckBox2_Click_(ByRef Sender As CheckBox)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).CheckBox2_Click(Sender)
+	Private Sub frmLiveFXType._CheckBox2_Click(ByRef Sender As CheckBox)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).CheckBox2_Click(Sender)
 	End Sub
 	
-	Private Sub frmLiveFXType.CheckBox1_Click_(ByRef Sender As CheckBox)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).CheckBox1_Click(Sender)
+	Private Sub frmLiveFXType._CheckBox1_Click(ByRef Sender As CheckBox)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).CheckBox1_Click(Sender)
 	End Sub
 	
-	Private Sub frmLiveFXType.ComboBoxEdit2_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).ComboBoxEdit2_Selected(Sender, ItemIndex)
+	Private Sub frmLiveFXType._ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).ComboBoxEdit2_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmLiveFXType.ComboBoxEdit1_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).ComboBoxEdit1_Selected(Sender, ItemIndex)
+	Private Sub frmLiveFXType._ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).ComboBoxEdit1_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmLiveFXType.Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).Form_Close(Sender, Action)
+	Private Sub frmLiveFXType._Form_Close(ByRef Sender As Form, ByRef Action As Integer)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).Form_Close(Sender, Action)
 	End Sub
 	
-	Private Sub frmLiveFXType.Form_Create_(ByRef Sender As Control)
-		*Cast(frmLiveFXType Ptr, Sender.Designer).Form_Create(Sender)
+	Private Sub frmLiveFXType._Form_Create(ByRef Sender As Control)
+		(*Cast(frmLiveFXType Ptr, Sender.Designer)).Form_Create(Sender)
 	End Sub
 	
 	Dim Shared frmLiveFX As frmLiveFXType
@@ -348,11 +357,11 @@
 
 ' display cError messages
 Private Sub frmLiveFXType.ShowError(es As String)
-	MessageBox(0, es & vbcrlf & "Error code: " & BASS_ErrorGetCode(), 0, 0)
+	MessageBox(0, es & vbCrLf & "Error code: " & BASS_ErrorGetCode(), 0, 0)
 End Sub
 
 Private Function frmLiveFXType.StreamCallback(ByVal handle As HSTREAM, ByVal buffer As Any Ptr, ByVal length As DWORD, ByVal user As Any Ptr) As DWORD
-	Return *Cast(frmLiveFXType Ptr, user).StreamProc(handle, buffer, length, user)
+	Return (*Cast(frmLiveFXType Ptr, user)).StreamProc(handle, buffer, length, user)
 End Function
 
 Private Function frmLiveFXType.StreamProc(ByVal handle As HSTREAM, ByVal buffer As Any Ptr, ByVal length As DWORD, ByVal user As Any Ptr) As DWORD

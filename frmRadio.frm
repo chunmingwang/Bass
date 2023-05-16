@@ -1,8 +1,16 @@
-﻿#ifdef __FB_WIN32__
-
-#endif
-
-'#Region "Form"
+﻿'#Region "Form"
+	#if defined(__FB_MAIN__) AndAlso Not defined(__MAIN_FILE__)
+		#define __MAIN_FILE__
+		Const _MAIN_FILE_ = __FILE__
+		#ifdef __FB_WIN32__
+			#cmdline "frmRadio.rc"
+		#endif
+	#endif
+	#ifdef __FB_64BIT__
+		#libpath "./lib/win64"
+	#else
+		#libpath "./lib/win32"
+	#endif
 	#include once "mff/Form.bi"
 	#include once "mff/GroupBox.bi"
 	#include once "mff/Label.bi"
@@ -13,11 +21,11 @@
 	#include once "mff/TimerComponent.bi"
 	
 	#include once "vbcompat.bi"
-	#include once "bass.bi"
 	#include once "string.bi"
-
-#define BASS_SYNC_HLS_SEGMENT	&H10300
-#define BASS_TAG_HLS_EXTINF		&h14000
+	#include once "bass.bi"
+	
+	#define BASS_SYNC_HLS_SEGMENT	&H10300
+	#define BASS_TAG_HLS_EXTINF		&h14000
 	
 	Using My.Sys.Forms
 	
@@ -30,10 +38,10 @@
 		"http://bassdrive.com/bassdrive.m3u", "http://bassdrive.com/bassdrive3.m3u", _
 		"http://sc6.radiocaroline.net:8040/listen.pls", "http://sc2.radiocaroline.net:8010/listen.pls" _
 		}
-
+		
 		cLock As CRITICAL_SECTION
 		chan As HSTREAM ' stream chandle
-
+		
 		Declare Sub ShowError(es As String)
 		Declare Sub DoMeta()
 		Declare Static Sub MetaSync(ByVal chandle As HSYNC, ByVal channel As DWORD, ByVal cData As DWORD, ByVal user As Any Ptr)
@@ -42,21 +50,21 @@
 		Declare Static Sub StatusProc(ByVal buffer As Const Any Ptr, ByVal length As DWORD, ByVal user As Any Ptr)
 		Declare Function OpenURL(ByVal url As String) As DWORD
 		
-		Declare Static Sub Form_Create_(ByRef Sender As Control)
+		Declare Static Sub _Form_Create(ByRef Sender As Control)
 		Declare Sub Form_Create(ByRef Sender As Control)
-		Declare Static Sub CommandButton1_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton1_Click(ByRef Sender As Control)
 		Declare Sub CommandButton1_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton6_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton6_Click(ByRef Sender As Control)
 		Declare Sub CommandButton6_Click(ByRef Sender As Control)
-		Declare Static Sub Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
+		Declare Static Sub _Form_Close(ByRef Sender As Form, ByRef Action As Integer)
 		Declare Sub Form_Close(ByRef Sender As Form, ByRef Action As Integer)
-		Declare Static Sub TimerComponent1_Timer_(ByRef Sender As TimerComponent)
+		Declare Static Sub _TimerComponent1_Timer(ByRef Sender As TimerComponent)
 		Declare Sub TimerComponent1_Timer(ByRef Sender As TimerComponent)
-		Declare Static Sub CommandButton11_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton11_Click(ByRef Sender As Control)
 		Declare Sub CommandButton11_Click(ByRef Sender As Control)
-		Declare Static Sub CheckBox1_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox1_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox1_Click(ByRef Sender As CheckBox)
-		Declare Static Sub TextBox1_Change_(ByRef Sender As TextBox)
+		Declare Static Sub _TextBox1_Change(ByRef Sender As TextBox)
 		Declare Sub TextBox1_Change(ByRef Sender As TextBox)
 		Declare Constructor
 		
@@ -80,8 +88,8 @@
 			.MinimizeBox = False
 			.StartPosition = FormStartPosition.CenterScreen
 			.Designer = @This
-			.OnCreate = @Form_Create_
-			.OnClose = @Form_Close_
+			.OnCreate = @_Form_Create
+			.OnClose = @_Form_Close
 			.SetBounds 0, 0, 350, 400
 		End With
 		' GroupBox1
@@ -119,7 +127,7 @@
 			.Caption = "1"
 			.SetBounds 120, 20, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton2
@@ -130,7 +138,7 @@
 			.Caption = "2"
 			.SetBounds 160, 20, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton3
@@ -141,7 +149,7 @@
 			.Caption = "3"
 			.SetBounds 200, 20, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton4
@@ -152,7 +160,7 @@
 			.Caption = "4"
 			.SetBounds 240, 20, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton5
@@ -163,7 +171,7 @@
 			.Caption = "5"
 			.SetBounds 280, 20, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton6
@@ -174,7 +182,7 @@
 			.Caption = "1"
 			.SetBounds 120, 50, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton7
@@ -185,7 +193,7 @@
 			.Caption = "2"
 			.SetBounds 160, 50, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton8
@@ -196,7 +204,7 @@
 			.Caption = "3"
 			.SetBounds 200, 50, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton9
@@ -207,7 +215,7 @@
 			.Caption = "4"
 			.SetBounds 240, 50, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton10
@@ -218,7 +226,7 @@
 			.Caption = "5"
 			.SetBounds 280, 50, 30, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox1
 		End With
 		' GroupBox2
@@ -247,7 +255,7 @@
 			.Caption = "Open"
 			.SetBounds 240, 20, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton11_Click_
+			.OnClick = @_CommandButton11_Click
 			.Parent = @GroupBox2
 		End With
 		' GroupBox3
@@ -306,7 +314,7 @@
 			.Enabled = False
 			.SetBounds 10, 20, 300, 20
 			.Designer = @This
-			.OnChange = @TextBox1_Change_
+			.OnChange = @_TextBox1_Change
 			.Parent = @GroupBox4
 		End With
 		' CheckBox1
@@ -318,7 +326,7 @@
 			.Checked = True
 			.SetBounds 10, 40, 140, 20
 			.Designer = @This
-			.OnClick = @CheckBox1_Click_
+			.OnClick = @_CheckBox1_Click
 			.Parent = @GroupBox4
 		End With
 		' TimerComponent1
@@ -326,41 +334,41 @@
 			.Name = "TimerComponent1"
 			.SetBounds 290, 0, 16, 16
 			.Designer = @This
-			.OnTimer = @TimerComponent1_Timer_
+			.OnTimer = @_TimerComponent1_Timer
 			.Parent = @GroupBox3
 		End With
 	End Constructor
 	
-Private Sub frmRadioType.TextBox1_Change_(ByRef Sender As TextBox)
-	*Cast(frmRadioType Ptr, Sender.Designer).TextBox1_Change(Sender)
-End Sub
-
-Private Sub frmRadioType.CheckBox1_Click_(ByRef Sender As CheckBox)
-	*Cast(frmRadioType Ptr, Sender.Designer).CheckBox1_Click(Sender)
-End Sub
-
-Private Sub frmRadioType.CommandButton11_Click_(ByRef Sender As Control)
-	*Cast(frmRadioType Ptr, Sender.Designer).CommandButton11_Click(Sender)
-End Sub
-
-Private Sub frmRadioType.TimerComponent1_Timer_(ByRef Sender As TimerComponent)
-	*Cast(frmRadioType Ptr, Sender.Designer).TimerComponent1_Timer(Sender)
-End Sub
-
-Private Sub frmRadioType.Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
-	*Cast(frmRadioType Ptr, Sender.Designer).Form_Close(Sender, Action)
-End Sub
-
-	Private Sub frmRadioType.CommandButton6_Click_(ByRef Sender As Control)
-		*Cast(frmRadioType Ptr, Sender.Designer).CommandButton6_Click(Sender)
+	Private Sub frmRadioType._TextBox1_Change(ByRef Sender As TextBox)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).TextBox1_Change(Sender)
 	End Sub
 	
-	Private Sub frmRadioType.CommandButton1_Click_(ByRef Sender As Control)
-		*Cast(frmRadioType Ptr, Sender.Designer).CommandButton1_Click(Sender)
+	Private Sub frmRadioType._CheckBox1_Click(ByRef Sender As CheckBox)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).CheckBox1_Click(Sender)
 	End Sub
 	
-	Private Sub frmRadioType.Form_Create_(ByRef Sender As Control)
-		*Cast(frmRadioType Ptr, Sender.Designer).Form_Create(Sender)
+	Private Sub frmRadioType._CommandButton11_Click(ByRef Sender As Control)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).CommandButton11_Click(Sender)
+	End Sub
+	
+	Private Sub frmRadioType._TimerComponent1_Timer(ByRef Sender As TimerComponent)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).TimerComponent1_Timer(Sender)
+	End Sub
+	
+	Private Sub frmRadioType._Form_Close(ByRef Sender As Form, ByRef Action As Integer)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).Form_Close(Sender, Action)
+	End Sub
+	
+	Private Sub frmRadioType._CommandButton6_Click(ByRef Sender As Control)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).CommandButton6_Click(Sender)
+	End Sub
+	
+	Private Sub frmRadioType._CommandButton1_Click(ByRef Sender As Control)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).CommandButton1_Click(Sender)
+	End Sub
+	
+	Private Sub frmRadioType._Form_Create(ByRef Sender As Control)
+		(*Cast(frmRadioType Ptr, Sender.Designer)).Form_Create(Sender)
 	End Sub
 	
 	Dim Shared frmRadio As frmRadioType
@@ -376,15 +384,15 @@ End Sub
 
 ' display cError messages
 Private Sub frmRadioType.ShowError(es As String)
-	MessageBox(0, es & vbcrlf & "Error code: " & BASS_ErrorGetCode(), 0, 0)
+	MessageBox(0, es & vbCrLf & "Error code: " & BASS_ErrorGetCode(), 0, 0)
 End Sub
 
 ' update stream title from metacdata
 Private Sub frmRadioType.DoMeta()
 	Dim As ZString Ptr meta = Cast(ZString Ptr, BASS_ChannelGetTags(chan, BASS_TAG_META)) ' got Shoutcast metacdata
-	If (meta = 0) Then 
+	If (meta = 0) Then
 		meta = Cast(ZString Ptr, BASS_ChannelGetTags(chan, BASS_TAG_OGG)) ' got Icecast/OGG tags
-		If (meta = 0) Then 
+		If (meta = 0) Then
 			meta = Cast(ZString Ptr, BASS_ChannelGetTags(chan, BASS_TAG_HLS_EXTINF)) ' got HLS segment info
 		End If
 	End If
@@ -394,27 +402,27 @@ Private Sub frmRadioType.DoMeta()
 End Sub
 
 Private Sub frmRadioType.MetaSync(ByVal chandle As HSYNC, ByVal channel As DWORD, ByVal cData As DWORD, ByVal user As Any Ptr)
-	*Cast(frmRadioType Ptr, user).DoMeta()
+	(*Cast(frmRadioType Ptr, user)).DoMeta()
 End Sub
 
 Private Sub frmRadioType.StallSync(ByVal chandle As HSYNC, ByVal channel As DWORD, ByVal cData As DWORD, ByVal user As Any Ptr)
 	If (cData = 0) Then ' stalled
-		*Cast(frmRadioType Ptr, user).TimerComponent1.Enabled = True ' start buffer monitoring
+		(*Cast(frmRadioType Ptr, user)).TimerComponent1.Enabled = True ' start buffer monitoring
 	End If
 End Sub
 
 Private Sub frmRadioType.FreeSync(ByVal chandle As HSYNC, ByVal channel As DWORD, ByVal cData As DWORD, ByVal user As Any Ptr)
-	*Cast(frmRadioType Ptr, user).chan = 0
-	*Cast(frmRadioType Ptr, user).Label4.Text =  "not playing"
-	*Cast(frmRadioType Ptr, user).Label3.Text =  ""
-	*Cast(frmRadioType Ptr, user).Label5.Text =  ""
+	(*Cast(frmRadioType Ptr, user)).chan = 0
+	(*Cast(frmRadioType Ptr, user)).Label4.Text =  "not playing"
+	(*Cast(frmRadioType Ptr, user)).Label3.Text =  ""
+	(*Cast(frmRadioType Ptr, user)).Label5.Text =  ""
 End Sub
 
 Private Sub frmRadioType.StatusProc(ByVal buffer As Const Any Ptr, ByVal length As DWORD, ByVal user As Any Ptr)
 	'(buffer As Any Ptr, length As DWORD, user As Any Ptr)
 	If buffer <> 0 And length = 0 Then ' got HTTP/ICY tags, And This Is still the current request Then
 		Dim As ZString Ptr proc = Cast(ZString Ptr, buffer)
-		If InStr(*Cast(frmRadioType Ptr, user).Label5.Text, *proc) = 0 Then *Cast(frmRadioType Ptr, user).Label5.Text = *proc ' display status
+		If InStr((*Cast(frmRadioType Ptr, user)).Label5.Text, *proc) = 0 Then (*Cast(frmRadioType Ptr, user)).Label5.Text = *proc ' display status
 	End If
 End Sub
 
@@ -424,7 +432,7 @@ Private Function frmRadioType.OpenURL(ByVal url As String) As DWORD
 	Label4.Text =  "connecting..."
 	Label3.Text =  ""
 	Label5.Text =  ""
-
+	
 	Dim As DWORD c
 	c = BASS_StreamCreateURL(url, 0, BASS_STREAM_BLOCK Or BASS_STREAM_STATUS Or BASS_STREAM_AUTOFREE Or BASS_SAMPLE_FLOAT, @StatusProc(), @This) ' open URL
 	EnterCriticalSection(@cLock)
@@ -445,7 +453,7 @@ Private Function frmRadioType.OpenURL(ByVal url As String) As DWORD
 		' play it!
 		BASS_ChannelPlay(chan, False)
 		' start buffer monitoring (And display stream info when done)
-		TimerComponent1.Enabled = True 
+		TimerComponent1.Enabled = True
 	End If
 	Return 0
 End Function

@@ -1,9 +1,16 @@
-﻿#ifdef __FB_WIN32__
-
-#endif
-
-'#Region "Form"
-	
+﻿'#Region "Form"
+	#if defined(__FB_MAIN__) AndAlso Not defined(__MAIN_FILE__)
+		#define __MAIN_FILE__
+		#ifdef __FB_WIN32__
+			#cmdline "frmBass.rc"
+		#endif
+		Const _MAIN_FILE_ = __FILE__
+	#endif
+	#ifdef __FB_64BIT__
+		#libpath "./lib/win64"
+	#else
+		#libpath "./lib/win32"
+	#endif
 	#include once "mff/Form.bi"
 	#include once "mff/GroupBox.bi"
 	#include once "mff/CommandButton.bi"
@@ -21,10 +28,8 @@
 	#include once "mff/TabControl.bi"
 	#include once "mff/Dialogs.bi"
 	#include once "mff/Animate.bi"
-	
 	#include once "vbcompat.bi"
 	#include once "bass.bi"
-	
 	#include once "BassBase.bi"
 	#include once "BassSpectrum.bi"
 	#include once "BassRecord.bi"
@@ -103,55 +108,55 @@
 		Declare Sub FxEnabled(fxName As WString, st As Boolean, ch As HSTREAM)
 		Declare Sub EqEnabled(st As Boolean, ch As HSTREAM)
 		
-		Declare Static Sub Form_Create_(ByRef Sender As Control)
+		Declare Static Sub _Form_Create(ByRef Sender As Control)
 		Declare Sub Form_Create(ByRef Sender As Control)
-		Declare Static Sub Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
+		Declare Static Sub _Form_Close(ByRef Sender As Form, ByRef Action As Integer)
 		Declare Sub Form_Close(ByRef Sender As Form, ByRef Action As Integer)
-		Declare Static Sub CommandButton1_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton1_Click(ByRef Sender As Control)
 		Declare Sub CommandButton1_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton6_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton6_Click(ByRef Sender As Control)
 		Declare Sub CommandButton6_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton3_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton3_Click(ByRef Sender As Control)
 		Declare Sub CommandButton3_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton4_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton4_Click(ByRef Sender As Control)
 		Declare Sub CommandButton4_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton5_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton5_Click(ByRef Sender As Control)
 		Declare Sub CommandButton5_Click(ByRef Sender As Control)
-		Declare Static Sub ComboBoxEdit1_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub TrackBar1_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub TrackBar2_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub TimerComponent1_Timer_(ByRef Sender As TimerComponent)
+		Declare Static Sub _TimerComponent1_Timer(ByRef Sender As TimerComponent)
 		Declare Sub TimerComponent1_Timer(ByRef Sender As TimerComponent)
-		Declare Static Sub TrackBar2_MouseDown_(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
+		Declare Static Sub _TrackBar2_MouseDown(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
 		Declare Sub TrackBar2_MouseDown(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
-		Declare Static Sub TrackBar2_MouseUp_(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
+		Declare Static Sub _TrackBar2_MouseUp(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
 		Declare Sub TrackBar2_MouseUp(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
-		Declare Static Sub CheckBox1_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox1_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox1_Click(ByRef Sender As CheckBox)
-		Declare Static Sub TimerComponent2_Timer_(ByRef Sender As TimerComponent)
+		Declare Static Sub _TimerComponent2_Timer(ByRef Sender As TimerComponent)
 		Declare Sub TimerComponent2_Timer(ByRef Sender As TimerComponent)
-		Declare Static Sub Picture1_Click_(ByRef Sender As Picture)
+		Declare Static Sub _Picture1_Click(ByRef Sender As Picture)
 		Declare Sub Picture1_Click(ByRef Sender As Picture)
-		Declare Static Sub ComboBoxEdit4_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit4_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit4_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub ComboBoxEdit2_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub TrackBar3_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub CommandButton8_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton8_Click(ByRef Sender As Control)
 		Declare Sub CommandButton8_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton12_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton12_Click(ByRef Sender As Control)
 		Declare Sub CommandButton12_Click(ByRef Sender As Control)
-		Declare Static Sub TimerComponent3_Timer_(ByRef Sender As TimerComponent)
+		Declare Static Sub _TimerComponent3_Timer(ByRef Sender As TimerComponent)
 		Declare Sub TimerComponent3_Timer(ByRef Sender As TimerComponent)
-		Declare Static Sub CheckBox3_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox3_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox3_Click(ByRef Sender As CheckBox)
-		Declare Static Sub CommandButton9_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton9_Click(ByRef Sender As Control)
 		Declare Sub CommandButton9_Click(ByRef Sender As Control)
-		Declare Static Sub CommandButton10_Click_(ByRef Sender As Control)
+		Declare Static Sub _CommandButton10_Click(ByRef Sender As Control)
 		Declare Sub CommandButton10_Click(ByRef Sender As Control)
 		Declare Static Sub _CheckBox4_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox4_Click(ByRef Sender As CheckBox)
@@ -169,15 +174,15 @@
 		Declare Sub CheckBox5_Click(ByRef Sender As CheckBox)
 		Declare Static Sub _tbSet_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub tbSet_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub TextBox1_DblClick_(ByRef Sender As Control)
+		Declare Static Sub _TextBox1_DblClick(ByRef Sender As Control)
 		Declare Sub TextBox1_DblClick(ByRef Sender As Control)
-		Declare Static Sub TextBox2_DblClick_(ByRef Sender As Control)
+		Declare Static Sub _TextBox2_DblClick(ByRef Sender As Control)
 		Declare Sub TextBox2_DblClick(ByRef Sender As Control)
-		Declare Static Sub tbEQ00_Change_(ByRef Sender As TrackBar, Position As Integer)
+		Declare Static Sub _tbEQ00_Change(ByRef Sender As TrackBar, Position As Integer)
 		Declare Sub tbEQ00_Change(ByRef Sender As TrackBar, Position As Integer)
-		Declare Static Sub ComboBoxEdit6_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		Declare Static Sub _ComboBoxEdit6_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 		Declare Sub ComboBoxEdit6_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		Declare Static Sub CheckBox15_Click_(ByRef Sender As CheckBox)
+		Declare Static Sub _CheckBox15_Click(ByRef Sender As CheckBox)
 		Declare Sub CheckBox15_Click(ByRef Sender As CheckBox)
 		Declare Constructor
 		
@@ -205,8 +210,8 @@
 			.Caption = "Bass Audio"
 			.StartPosition = FormStartPosition.CenterScreen
 			.Designer = @This
-			.OnCreate = @Form_Create_
-			.OnClose = @Form_Close_
+			.OnCreate = @_Form_Create
+			.OnClose = @_Form_Close
 			.SetBounds 0, 0, 880, 720
 		End With
 		' GroupBox1
@@ -293,7 +298,7 @@
 			.Hint = ""
 			.SetBounds 10, 20, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton1_Click_
+			.OnClick = @_CommandButton1_Click
 			.Parent = @GroupBox6
 		End With
 		' ComboBoxEdit1
@@ -303,7 +308,7 @@
 			.TabIndex = 5
 			.SetBounds 90, 20, 310, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit1_Selected_
+			.OnSelected = @_ComboBoxEdit1_Selected
 			.Parent = @GroupBox6
 		End With
 		' CommandButton3
@@ -314,7 +319,7 @@
 			.Caption = "Open"
 			.SetBounds 10, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton3_Click_
+			.OnClick = @_CommandButton3_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton4
@@ -326,7 +331,7 @@
 			.Enabled = False
 			.SetBounds 90, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton4_Click_
+			.OnClick = @_CommandButton4_Click
 			.Parent = @GroupBox1
 		End With
 		' TextBox1
@@ -336,7 +341,7 @@
 			.TabIndex = 9
 			.SetBounds 10, 20, 390, 20
 			.Designer = @This
-			.OnDblClick = @TextBox1_DblClick_
+			.OnDblClick = @_TextBox1_DblClick
 			.Parent = @GroupBox1
 		End With
 		' CommandButton5
@@ -348,7 +353,7 @@
 			.Enabled = False
 			.SetBounds 170, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton5_Click_
+			.OnClick = @_CommandButton5_Click
 			.Parent = @GroupBox1
 		End With
 		' CommandButton6
@@ -359,7 +364,7 @@
 			.Caption = "Input"
 			.SetBounds 10, 80, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton6_Click_
+			.OnClick = @_CommandButton6_Click
 			.Parent = @GroupBox6
 		End With
 		' CommandButton8
@@ -371,7 +376,7 @@
 			.Enabled = True
 			.SetBounds 10, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton8_Click_
+			.OnClick = @_CommandButton8_Click
 			.Parent = @GroupBox2
 		End With
 		' CommandButton9
@@ -383,7 +388,7 @@
 			.Enabled = False
 			.SetBounds 90, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton9_Click_
+			.OnClick = @_CommandButton9_Click
 			.Parent = @GroupBox2
 		End With
 		' CommandButton10
@@ -395,7 +400,7 @@
 			.Enabled = True
 			.SetBounds 10, 20, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton10_Click_
+			.OnClick = @_CommandButton10_Click
 			.Parent = @GroupBox2
 		End With
 		' ComboBoxEdit2
@@ -405,7 +410,7 @@
 			.TabIndex = 16
 			.SetBounds 90, 80, 310, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit2_Selected_
+			.OnSelected = @_ComboBoxEdit2_Selected
 			.Parent = @GroupBox6
 		End With
 		' TextBox2
@@ -416,7 +421,7 @@
 			.Enabled = True
 			.SetBounds 10, 80, 390, 20
 			.Designer = @This
-			.OnDblClick = @TextBox2_DblClick_
+			.OnDblClick = @_TextBox2_DblClick
 			.Parent = @GroupBox2
 		End With
 		' CommandButton12
@@ -428,7 +433,7 @@
 			.Enabled = False
 			.SetBounds 170, 50, 70, 20
 			.Designer = @This
-			.OnClick = @CommandButton12_Click_
+			.OnClick = @_CommandButton12_Click
 			.Parent = @GroupBox2
 		End With
 		' TrackBar1
@@ -446,7 +451,7 @@
 			.TickMark = TickMarks.tmBoth
 			.SetBounds 90, 50, 310, 20
 			.Designer = @This
-			.OnChange = @TrackBar1_Change_
+			.OnChange = @_TrackBar1_Change
 			.Parent = @GroupBox6
 		End With
 		' TrackBar2
@@ -461,9 +466,9 @@
 			.ThumbLength = 15
 			.SetBounds 10, 80, 390, 20
 			.Designer = @This
-			.OnChange = @TrackBar2_Change_
-			.OnMouseDown = @TrackBar2_MouseDown_
-			.OnMouseUp = @TrackBar2_MouseUp_
+			.OnChange = @_TrackBar2_Change
+			.OnMouseDown = @_TrackBar2_MouseDown
+			.OnMouseUp = @_TrackBar2_MouseUp
 			.Parent = @GroupBox1
 		End With
 		' TrackBar3
@@ -479,7 +484,7 @@
 			.MaxValue = 10000
 			.SetBounds 90, 140, 310, 20
 			.Designer = @This
-			.OnChange = @TrackBar3_Change_
+			.OnChange = @_TrackBar3_Change
 			.Parent = @GroupBox6
 		End With
 		' TimerComponent1
@@ -488,7 +493,7 @@
 			.Interval = 100
 			.SetBounds 0, 40, 16, 16
 			.Designer = @This
-			.OnTimer = @TimerComponent1_Timer_
+			.OnTimer = @_TimerComponent1_Timer
 			.Parent = @GroupBox1
 		End With
 		' Label1
@@ -522,7 +527,7 @@
 			.BackColor = 12632256
 			.SetBounds 50, 20, 368, 127
 			.Designer = @This
-			.OnClick = @Picture1_Click_
+			.OnClick = @_Picture1_Click
 			.Parent = @GroupBox4
 		End With
 		' CheckBox1
@@ -534,7 +539,7 @@
 			.Caption = ""
 			.SetBounds 10, 20, 20, 20
 			.Designer = @This
-			.OnClick = @CheckBox1_Click_
+			.OnClick = @_CheckBox1_Click
 			.Parent = @GroupBox4
 		End With
 		' TextBox3
@@ -550,7 +555,7 @@
 			.Name = "TimerComponent2"
 			.SetBounds 30, 40, 16, 16
 			.Designer = @This
-			.OnTimer = @TimerComponent2_Timer_
+			.OnTimer = @_TimerComponent2_Timer
 			.Parent = @GroupBox4
 		End With
 		' RadioButton1
@@ -604,7 +609,7 @@
 			.TabIndex = 32
 			.SetBounds 90, 110, 150, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit4_Selected_
+			.OnSelected = @_ComboBoxEdit4_Selected
 			.Parent = @GroupBox6
 		End With
 		' CheckBox2
@@ -634,7 +639,7 @@
 			.Enabled = False
 			.SetBounds 350, 50, 16, 16
 			.Designer = @This
-			.OnTimer = @TimerComponent3_Timer_
+			.OnTimer = @_TimerComponent3_Timer
 			.Parent = @GroupBox2
 		End With
 		' CheckBox3
@@ -646,7 +651,7 @@
 			.Enabled = False
 			.SetBounds 250, 50, 60, 20
 			.Designer = @This
-			.OnClick = @CheckBox3_Click_
+			.OnClick = @_CheckBox3_Click
 			.Parent = @GroupBox1
 		End With
 		' Label4
@@ -2964,7 +2969,7 @@
 			.ThumbLength = 15
 			.SetBounds 110, 30, 20, 90
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.Parent = @GroupBox8
 		End With
 		' tbEQ01
@@ -2980,7 +2985,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 140, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -2997,7 +3002,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 170, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3014,7 +3019,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 200, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3031,7 +3036,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 230, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3048,7 +3053,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 260, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3065,7 +3070,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 290, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3082,7 +3087,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 320, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3099,7 +3104,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 350, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3116,7 +3121,7 @@
 			.TickMark = TickMarks.tmBoth
 			.ThumbLength = 15
 			.Designer = @This
-			.OnChange = @tbEQ00_Change_
+			.OnChange = @_tbEQ00_Change
 			.SetBounds 380, 30, 20, 90
 			.Parent = @GroupBox8
 		End With
@@ -3226,7 +3231,7 @@
 			.TabIndex = 257
 			.SetBounds 10, 50, 90, 21
 			.Designer = @This
-			.OnSelected = @ComboBoxEdit6_Selected_
+			.OnSelected = @_ComboBoxEdit6_Selected
 			.Parent = @GroupBox8
 		End With
 		' lblEQB00
@@ -3354,161 +3359,161 @@
 			.Caption = "Dark Mode"
 			.SetBounds 10, 260, 80, 20
 			.Designer = @This
-			.OnClick = @CheckBox15_Click_
+			.OnClick = @_CheckBox15_Click
 			.Parent = @GroupBox3
 		End With
 	End Constructor
 	
-	Private Sub frmBassType.CheckBox15_Click_(ByRef Sender As CheckBox)
-		*Cast(frmBassType Ptr, Sender.Designer).CheckBox15_Click(Sender)
+	Private Sub frmBassType._CheckBox15_Click(ByRef Sender As CheckBox)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CheckBox15_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.ComboBoxEdit6_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).ComboBoxEdit6_Selected(Sender, ItemIndex)
+	Private Sub frmBassType._ComboBoxEdit6_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).ComboBoxEdit6_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmBassType.tbEQ00_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).tbEQ00_Change(Sender, Position)
+	Private Sub frmBassType._tbEQ00_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).tbEQ00_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmBassType.TextBox2_DblClick_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).TextBox2_DblClick(Sender)
+	Private Sub frmBassType._TextBox2_DblClick(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TextBox2_DblClick(Sender)
 	End Sub
 	
-	Private Sub frmBassType.TextBox1_DblClick_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).TextBox1_DblClick(Sender)
+	Private Sub frmBassType._TextBox1_DblClick(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TextBox1_DblClick(Sender)
 	End Sub
 	
 	Private Sub frmBassType._tbSet_Change(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).tbSet_Change(Sender, Position)
+		(*Cast(frmBassType Ptr, Sender.Designer)).tbSet_Change(Sender, Position)
 	End Sub
 	
 	Private Sub frmBassType._CheckBox5_Click(ByRef Sender As CheckBox)
-		*Cast(frmBassType Ptr, Sender.Designer).CheckBox5_Click(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CheckBox5_Click(Sender)
 	End Sub
 	
 	Private Sub frmBassType._RadioButton1_Click(ByRef Sender As RadioButton)
-		*Cast(frmBassType Ptr, Sender.Designer).RadioButton1_Click(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).RadioButton1_Click(Sender)
 	End Sub
 	
 	Private Sub frmBassType._TrackBar4_Change(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar4_Change(Sender, Position)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar4_Change(Sender, Position)
 	End Sub
 	
 	Private Sub frmBassType._CommandButton24_Click(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton24_Click(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton24_Click(Sender)
 	End Sub
 	
 	Private Sub frmBassType._TimerComponent4_Timer(ByRef Sender As TimerComponent)
-		*Cast(frmBassType Ptr, Sender.Designer).TimerComponent4_Timer(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TimerComponent4_Timer(Sender)
 	End Sub
 	
 	Private Sub frmBassType._CommandButton23_Click(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton23_Click(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton23_Click(Sender)
 	End Sub
 	
 	Private Sub frmBassType._CheckBox4_Click(ByRef Sender As CheckBox)
-		*Cast(frmBassType Ptr, Sender.Designer).CheckBox4_Click(Sender)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CheckBox4_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton10_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton10_Click(Sender)
+	Private Sub frmBassType._CommandButton10_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton10_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton9_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton9_Click(Sender)
+	Private Sub frmBassType._CommandButton9_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton9_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CheckBox3_Click_(ByRef Sender As CheckBox)
-		*Cast(frmBassType Ptr, Sender.Designer).CheckBox3_Click(Sender)
+	Private Sub frmBassType._CheckBox3_Click(ByRef Sender As CheckBox)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CheckBox3_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.TimerComponent3_Timer_(ByRef Sender As TimerComponent)
-		*Cast(frmBassType Ptr, Sender.Designer).TimerComponent3_Timer(Sender)
+	Private Sub frmBassType._TimerComponent3_Timer(ByRef Sender As TimerComponent)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TimerComponent3_Timer(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton12_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton12_Click(Sender)
+	Private Sub frmBassType._CommandButton12_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton12_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton8_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton8_Click(Sender)
+	Private Sub frmBassType._CommandButton8_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton8_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.TrackBar3_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar3_Change(Sender, Position)
+	Private Sub frmBassType._TrackBar3_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar3_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmBassType.ComboBoxEdit2_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).ComboBoxEdit2_Selected(Sender, ItemIndex)
+	Private Sub frmBassType._ComboBoxEdit2_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).ComboBoxEdit2_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmBassType.ComboBoxEdit4_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).ComboBoxEdit4_Selected(Sender, ItemIndex)
+	Private Sub frmBassType._ComboBoxEdit4_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).ComboBoxEdit4_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmBassType.Picture1_Click_(ByRef Sender As Picture)
-		*Cast(frmBassType Ptr, Sender.Designer).Picture1_Click(Sender)
+	Private Sub frmBassType._Picture1_Click(ByRef Sender As Picture)
+		(*Cast(frmBassType Ptr, Sender.Designer)).Picture1_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.TimerComponent2_Timer_(ByRef Sender As TimerComponent)
-		*Cast(frmBassType Ptr, Sender.Designer).TimerComponent2_Timer(Sender)
+	Private Sub frmBassType._TimerComponent2_Timer(ByRef Sender As TimerComponent)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TimerComponent2_Timer(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CheckBox1_Click_(ByRef Sender As CheckBox)
-		*Cast(frmBassType Ptr, Sender.Designer).CheckBox1_Click(Sender)
+	Private Sub frmBassType._CheckBox1_Click(ByRef Sender As CheckBox)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CheckBox1_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.TrackBar2_MouseUp_(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar2_MouseUp(Sender, MouseButton, x, y, Shift)
+	Private Sub frmBassType._TrackBar2_MouseUp(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar2_MouseUp(Sender, MouseButton, x, y, Shift)
 	End Sub
 	
-	Private Sub frmBassType.TrackBar2_MouseDown_(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar2_MouseDown(Sender, MouseButton, x, y, Shift)
+	Private Sub frmBassType._TrackBar2_MouseDown(ByRef Sender As Control, MouseButton As Integer, x As Integer, y As Integer, Shift As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar2_MouseDown(Sender, MouseButton, x, y, Shift)
 	End Sub
 	
-	Private Sub frmBassType.TrackBar1_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar1_Change(Sender, Position)
+	Private Sub frmBassType._TrackBar1_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar1_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmBassType.TrackBar2_Change_(ByRef Sender As TrackBar, Position As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).TrackBar2_Change(Sender, Position)
+	Private Sub frmBassType._TrackBar2_Change(ByRef Sender As TrackBar, Position As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TrackBar2_Change(Sender, Position)
 	End Sub
 	
-	Private Sub frmBassType.TimerComponent1_Timer_(ByRef Sender As TimerComponent)
-		*Cast(frmBassType Ptr, Sender.Designer).TimerComponent1_Timer(Sender)
+	Private Sub frmBassType._TimerComponent1_Timer(ByRef Sender As TimerComponent)
+		(*Cast(frmBassType Ptr, Sender.Designer)).TimerComponent1_Timer(Sender)
 	End Sub
 	
-	Private Sub frmBassType.ComboBoxEdit1_Selected_(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).ComboBoxEdit1_Selected(Sender, ItemIndex)
+	Private Sub frmBassType._ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).ComboBoxEdit1_Selected(Sender, ItemIndex)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton5_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton5_Click(Sender)
+	Private Sub frmBassType._CommandButton5_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton5_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton4_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton4_Click(Sender)
+	Private Sub frmBassType._CommandButton4_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton4_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton3_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton3_Click(Sender)
+	Private Sub frmBassType._CommandButton3_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton3_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton6_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton6_Click(Sender)
+	Private Sub frmBassType._CommandButton6_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton6_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.CommandButton1_Click_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).CommandButton1_Click(Sender)
+	Private Sub frmBassType._CommandButton1_Click(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).CommandButton1_Click(Sender)
 	End Sub
 	
-	Private Sub frmBassType.Form_Close_(ByRef Sender As Form, ByRef Action As Integer)
-		*Cast(frmBassType Ptr, Sender.Designer).Form_Close(Sender, Action)
+	Private Sub frmBassType._Form_Close(ByRef Sender As Form, ByRef Action As Integer)
+		(*Cast(frmBassType Ptr, Sender.Designer)).Form_Close(Sender, Action)
 	End Sub
 	
-	Private Sub frmBassType.Form_Create_(ByRef Sender As Control)
-		*Cast(frmBassType Ptr, Sender.Designer).Form_Create(Sender)
+	Private Sub frmBassType._Form_Create(ByRef Sender As Control)
+		(*Cast(frmBassType Ptr, Sender.Designer)).Form_Create(Sender)
 	End Sub
 
 	InitDarkMode()
@@ -3551,21 +3556,21 @@ End Function
 
 ' update stream title from metacdata
 Private Sub frmBassType.OnRaidoMeta(Owner As Any Ptr, Meta As ZString Ptr)
-	*Cast(frmBassType Ptr, Owner).TextBox5.Text = *Meta
+	(*Cast(frmBassType Ptr, Owner)).TextBox5.Text = *Meta
 End Sub
 
 Private Sub frmBassType.OnRaidoStall(Owner As Any Ptr)
-	*Cast(frmBassType Ptr, Owner).TimerComponent4.Enabled = True ' start buffer monitoring
+	(*Cast(frmBassType Ptr, Owner)).TimerComponent4.Enabled = True ' start buffer monitoring
 End Sub
 
 Private Sub frmBassType.OnRaidoFree(Owner As Any Ptr)
-	*Cast(frmBassType Ptr, Owner).Label5.Text = "not playing"
-	*Cast(frmBassType Ptr, Owner).Label6.Text = ""
-	*Cast(frmBassType Ptr, Owner).TextBox5.Text = ""
+	(*Cast(frmBassType Ptr, Owner)).Label5.Text = "not playing"
+	(*Cast(frmBassType Ptr, Owner)).Label6.Text = ""
+	(*Cast(frmBassType Ptr, Owner)).TextBox5.Text = ""
 End Sub
 
 Private Sub frmBassType.OnRaidoStatus(Owner As Any Ptr, Status As ZString Ptr)
-	*Cast(frmBassType Ptr, Owner).Label6.Text = *Status
+	(*Cast(frmBassType Ptr, Owner)).Label6.Text = *Status
 End Sub
 
 Private Sub frmBassType.Form_Create(ByRef Sender As Control)
@@ -4078,7 +4083,7 @@ End Sub
 
 Private Sub frmBassType.ComboBoxEdit1_Selected(ByRef Sender As ComboBoxEdit, ItemIndex As Integer)
 	OutputDevice = ItemIndex
-	Bass_Free
+	BASS_Free
 	If BASS_Init(OutputDevice, 44100, 0, This.Handle, 0) Then
 		BASS_ChannelSetDevice(bPlayback.Stream, OutputDevice)
 		BASS_ChannelSetDevice(bRaido.Stream, OutputDevice)
@@ -4754,7 +4759,7 @@ Private Sub frmBassType.FxPara2Ctl(fxIdx As Integer)
 				s = bfdREV.fHighFreqRTRatio
 			End Select
 		End Select
-		fxCtlTrack(fxIdx, i)->Position = s * CInt(fxCtlTrack(fxIdx, i)->text)
+		fxCtlTrack(fxIdx, i)->Position = s * CInt(fxCtlTrack(fxIdx, i)->Text)
 	Next
 End Sub
 
@@ -4982,10 +4987,10 @@ Private Sub frmBassType.EqEnabled(st As Boolean, ch As HSTREAM)
 	GroupBox8.Enabled = st
 	ComboBoxEdit6.Enabled = st
 	Dim i As Integer
-	For i = 0 To cntEq
-		fxTrackEq(i)->Enabled = st
-		fxLabelEq(i)->Enabled = st
-		fxLabelEqB(i)->Enabled = st
+	For i = 0 To cntEQ
+		fxTrackEQ(i)->Enabled = st
+		fxLabelEQ(i)->Enabled = st
+		fxLabelEQB(i)->Enabled = st
 		If st Then
 			fxEQHdl(i) = BASS_ChannelSetFX(ch, fxTyp(8), i + 20)
 			BASS_FXGetParameters(fxEQHdl(i), @bfdEQ(i))
@@ -5055,81 +5060,81 @@ Private Sub frmBassType.ComboBoxEdit6_Selected(ByRef Sender As ComboBoxEdit, Ite
 	Select Case ComboBoxEdit6.ItemIndex
 	Case 0 'zero
 		fxTrackEq(0)->Position = 0
-		fxTrackEq(1)->Position = 0
-		fxTrackEq(2)->Position = 0
-		fxTrackEq(3)->Position = 0
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = 0
-		fxTrackEq(7)->Position = 0
-		fxTrackEq(8)->Position = 0
-		fxTrackEq(9)->Position = 0
+		fxTrackEQ(1)->Position = 0
+		fxTrackEQ(2)->Position = 0
+		fxTrackEQ(3)->Position = 0
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = 0
+		fxTrackEQ(7)->Position = 0
+		fxTrackEQ(8)->Position = 0
+		fxTrackEQ(9)->Position = 0
 	Case 1 'bass
-		fxTrackEq(0)->Position = -2
-		fxTrackEq(1)->Position = -2
-		fxTrackEq(2)->Position = -1
-		fxTrackEq(3)->Position = -1
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = 0
-		fxTrackEq(7)->Position = 0
-		fxTrackEq(8)->Position = 0
-		fxTrackEq(9)->Position = 0
+		fxTrackEQ(0)->Position = -2
+		fxTrackEQ(1)->Position = -2
+		fxTrackEQ(2)->Position = -1
+		fxTrackEQ(3)->Position = -1
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = 0
+		fxTrackEQ(7)->Position = 0
+		fxTrackEQ(8)->Position = 0
+		fxTrackEQ(9)->Position = 0
 	Case 2 'treble
-		fxTrackEq(0)->Position = 0
-		fxTrackEq(1)->Position = 0
-		fxTrackEq(2)->Position = 0
-		fxTrackEq(3)->Position = 0
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = -1
-		fxTrackEq(7)->Position = -1
-		fxTrackEq(8)->Position = -2
-		fxTrackEq(9)->Position = -3
+		fxTrackEQ(0)->Position = 0
+		fxTrackEQ(1)->Position = 0
+		fxTrackEQ(2)->Position = 0
+		fxTrackEQ(3)->Position = 0
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = -1
+		fxTrackEQ(7)->Position = -1
+		fxTrackEQ(8)->Position = -2
+		fxTrackEQ(9)->Position = -3
 	Case 3 'rock
-		fxTrackEq(0)->Position = -3
-		fxTrackEq(1)->Position = -2
-		fxTrackEq(2)->Position = -2
-		fxTrackEq(3)->Position = -1
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = -1
-		fxTrackEq(7)->Position = -2
-		fxTrackEq(8)->Position = -2
-		fxTrackEq(9)->Position = -3
+		fxTrackEQ(0)->Position = -3
+		fxTrackEQ(1)->Position = -2
+		fxTrackEQ(2)->Position = -2
+		fxTrackEQ(3)->Position = -1
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = -1
+		fxTrackEQ(7)->Position = -2
+		fxTrackEQ(8)->Position = -2
+		fxTrackEQ(9)->Position = -3
 	Case 4 'modern
-		fxTrackEq(0)->Position = -2
-		fxTrackEq(1)->Position = -2
-		fxTrackEq(2)->Position = -1
-		fxTrackEq(3)->Position = -1
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = -1
-		fxTrackEq(7)->Position = -1
-		fxTrackEq(8)->Position = -2
-		fxTrackEq(9)->Position = -2
+		fxTrackEQ(0)->Position = -2
+		fxTrackEQ(1)->Position = -2
+		fxTrackEQ(2)->Position = -1
+		fxTrackEQ(3)->Position = -1
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = -1
+		fxTrackEQ(7)->Position = -1
+		fxTrackEQ(8)->Position = -2
+		fxTrackEQ(9)->Position = -2
 	Case 5 'classical
-		fxTrackEq(0)->Position = 0
-		fxTrackEq(1)->Position = 0
-		fxTrackEq(2)->Position = 0
-		fxTrackEq(3)->Position = -1
-		fxTrackEq(4)->Position = -2
-		fxTrackEq(5)->Position = -2
-		fxTrackEq(6)->Position = -1
-		fxTrackEq(7)->Position = 0
-		fxTrackEq(8)->Position = 0
-		fxTrackEq(9)->Position = 0
+		fxTrackEQ(0)->Position = 0
+		fxTrackEQ(1)->Position = 0
+		fxTrackEQ(2)->Position = 0
+		fxTrackEQ(3)->Position = -1
+		fxTrackEQ(4)->Position = -2
+		fxTrackEQ(5)->Position = -2
+		fxTrackEQ(6)->Position = -1
+		fxTrackEQ(7)->Position = 0
+		fxTrackEQ(8)->Position = 0
+		fxTrackEQ(9)->Position = 0
 	Case 6 'customnization
-		fxTrackEq(0)->Position = 0
-		fxTrackEq(1)->Position = 0
-		fxTrackEq(2)->Position = 0
-		fxTrackEq(3)->Position = 0
-		fxTrackEq(4)->Position = 0
-		fxTrackEq(5)->Position = 0
-		fxTrackEq(6)->Position = 0
-		fxTrackEq(7)->Position = 0
-		fxTrackEq(8)->Position = 0
-		fxTrackEq(9)->Position = 0
+		fxTrackEQ(0)->Position = 0
+		fxTrackEQ(1)->Position = 0
+		fxTrackEQ(2)->Position = 0
+		fxTrackEQ(3)->Position = 0
+		fxTrackEQ(4)->Position = 0
+		fxTrackEQ(5)->Position = 0
+		fxTrackEQ(6)->Position = 0
+		fxTrackEQ(7)->Position = 0
+		fxTrackEQ(8)->Position = 0
+		fxTrackEQ(9)->Position = 0
 	End Select
 End Sub
 
