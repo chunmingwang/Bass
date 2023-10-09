@@ -17,7 +17,7 @@ Record live audio, Record computer playback, Record netradio...
 
 # Device Select, Spectrum, Ex, Equalizer
 
-![image](https://github.com/chunmingwang/Bass/assets/35757455/9cbfbeef-9449-48fc-9777-5e6188d92cc4)
+![image](https://github.com/chunmingwang/Bass/assets/35757455/005e490c-2412-4a6d-8b33-4f636a61b916)
 
 LiveFX
 
