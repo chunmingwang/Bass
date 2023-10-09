@@ -6,7 +6,7 @@
 		#endif
 		Const _MAIN_FILE_ = __FILE__
 	#endif
-	#ifdef __FB_64BIT__
+	#ifdef __FB_64BIT__ '...'
 		#libpath "./lib/win64"
 	#else
 		#libpath "./lib/win32"
@@ -497,14 +497,14 @@
 		' chkWaveAct
 		With chkWaveAct
 			.Name = "chkWaveAct"
-			.Text = ""
+			.Text = "Start"
 			.TabIndex = 27
 			.Checked = False
-			.Caption = ""
+			.Caption = "Start"
 			.Hint = "Start"
 			.Alignment = CheckAlignmentConstants.chLeft
-			.ID = 1268
-			.SetBounds 180, 0, 30, 20
+			.ID = 1273
+			.SetBounds 180, 0, 50, 20
 			.Designer = @This
 			.OnClick = Cast(Sub(ByRef Designer As My.Sys.Object, ByRef Sender As Control), @CheckBox_Click)
 			.Parent = @GroupBox4
@@ -512,12 +512,12 @@
 		' txtWFInterval
 		With txtWFInterval
 			.Name = "txtWFInterval"
-			.Text = "25"
+			.Text = "15"
 			.TabIndex = 28
 			.Hint = "Interval"
 			.Alignment = AlignmentConstants.taCenter
 			.ID = 5559
-			.SetBounds 210, 0, 30, 20
+			.SetBounds 240, 0, 30, 20
 			.Parent = @GroupBox4
 		End With
 		' RadioButton1
@@ -3324,6 +3324,7 @@
 		' tmrWaveForm
 		With tmrWaveForm
 			.Name = "tmrWaveForm"
+			.Interval = 15
 			.SetBounds 0, 0, 16, 16
 			.Designer = @This
 			.OnTimer = Cast(Sub(ByRef Designer As My.Sys.Object, ByRef Sender As TimerComponent), @TimerComponent_Timer)
