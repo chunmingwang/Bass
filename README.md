@@ -1,8 +1,6 @@
 # BassAudio
 Example for VisualFBEditor
 
-Function: 
-
 #### Playback 
 
 Support audio format mp3, wav, flac, ape...
